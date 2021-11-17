@@ -1,5 +1,6 @@
 from pathlib    import Path
 from datetime   import timedelta
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -12,10 +13,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-6krs(7srf(a=s9i42&&l8v6e5-lokwuh1mzge$cu05lymqpsd5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-ALLOWED_HOSTS = []
+DEBUG = False
+ALLOWED_HOSTS = ['localhost', 'ec2-18-214-140-149.compute-1.amazonaws.com',]
 
-""" CORS_ALLOW_ALL_ORIGINS = True """
+""" CORS_ALLOW_ALL_ORIGINS = True
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost",
+]
+CORS_ORIGIN_ALLOW_ALL = True """
+
 
 
 # Application definition
@@ -90,10 +96,10 @@ WSGI_APPLICATION = 'auth_backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE'    : 'django.db.backends.postgresql_psycopg2',
-        'NAME'      : 'auth_db',
-        'USER'      : 'postgres',
-        'PASSWORD'  : 'd4t4b4s3',
-        'HOST'      : 'localhost',
+        'NAME'      : 'dctm1dnfj79of9',
+        'USER'      : 'sxfwwnlimtreaz',
+        'PASSWORD'  : '10eed63b31f123c6edf6d15aa04a1d887e874cb59927c89dc5e999cb4ba60fa3',
+        'HOST'      : 'ec2-18-214-140-149.compute-1.amazonaws.com',
         'PORT'      : '5432'
     }
 }
@@ -141,3 +147,5 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+django_heroku.settings(locals())
