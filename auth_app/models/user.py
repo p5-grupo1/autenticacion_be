@@ -27,6 +27,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     nombre      = models.CharField('Nombre', max_length=50)
     email       = models.EmailField('Email', max_length=100, unique=True)
     rol_jardinero    = models.BooleanField('Rol', help_text="Si su rol es Jardinero True, si es un usuario corriente False", null=False )
+    descripcion      = models.CharField('Descripcion', max_length=256, null=True)
+    ciudad           = models.CharField('Ciudad', max_length=30, null=True)
+    telefono         = models.CharField('Telefono', max_length=20, null=True)
+
     def save(self, **kwargs):
         some_salt = 'mMUj0DrIK6vgtdIYepkIxN'
         self.password = make_password(self.password, some_salt)
