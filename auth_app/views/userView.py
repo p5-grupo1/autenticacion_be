@@ -13,6 +13,9 @@ from django.conf                            import settings
 
 
 class UserCreateView(views.APIView):
+    """ 
+    Servicio para crear usuario
+    """
     def post(self, request, *args, **kwargs):
         serializers = UserSerializer(data=request.data)
         serializers.is_valid(raise_exception=True)
@@ -28,6 +31,9 @@ class UserCreateView(views.APIView):
 
 
 class UserDetailView(generics.RetrieveAPIView):
+    """
+    Servicio para listar la informacion de un usuario
+    """
     queryset    = User.objects.all()
     serializer_class    = UserSerializer
     permissions_classes = (IsAuthenticated,)
@@ -44,6 +50,9 @@ class UserDetailView(generics.RetrieveAPIView):
         return super().get(self,request, *args, **kwargs)
 
 class UserUpdateView(generics.UpdateAPIView):
+    """
+    Servicio para actualizar la informacion de un usuario
+    """
     serializer_class = UserSerializer
     queryset = User.objects.all()
     permissions_classes = (IsAuthenticated,)
