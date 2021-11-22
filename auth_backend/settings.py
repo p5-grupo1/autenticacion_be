@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'auth_app',
     'rest_framework',
+    'drf_yasg',
 ]
 
 SIMPLE_JWT = {
