@@ -8,3 +8,6 @@ Para asegurar la seguridad en la autentiticacion se utiliza SIMPLE_JWT
 - Verificar Token
 - Registrar
 - Ingresar 
+
+Swagger API Documentation:
+-https://soluciones-verdes-auth-ms.herokuapp.com/swagger/
