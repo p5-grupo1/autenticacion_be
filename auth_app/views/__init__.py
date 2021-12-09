@@ -1,2 +1,2 @@
-from .userView  import UserCreateView, UserDetailView, UserUpdateView
+from .userView  import UserCreateView, UserDetailView, UserUpdateView, UserListUsername
 from .verifyTokenView import VerifyTokenView
