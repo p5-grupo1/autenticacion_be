@@ -10,6 +10,7 @@ from auth_app.serializers.userSerializer    import UserSerializer
 from rest_framework.permissions             import IsAuthenticated
 from rest_framework_simplejwt.backends      import TokenBackend
 from django.conf                            import settings 
+from django_filters.rest_framework          import DjangoFilterBackend
 
 
 class UserCreateView(views.APIView):
@@ -48,3 +49,12 @@ class UserUpdateView(generics.UpdateAPIView):
     serializer_class = UserSerializer
     def update(self, request, *args, **kwargs):
         return super().update(request, *args, **kwargs)
+
+class UserListUsername(generics.ListAPIView):
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['username']
+    serializer_class = UserSerializer
+
+    def get_queryset(self):
+        queryset = User.objects.all()
+        return queryset

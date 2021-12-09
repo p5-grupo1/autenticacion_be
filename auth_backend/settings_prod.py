@@ -22,6 +22,10 @@ CORS_ORIGIN_WHITELIST = [
 ]
 CORS_ORIGIN_ALLOW_ALL = True """
 
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS' : 
+            ['django_filters.rest_framework.DjangoFilterBackend'],
+}
 
 
 # Application definition
@@ -33,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_filters',
     'auth_app',
     'rest_framework',
     'drf_yasg',
