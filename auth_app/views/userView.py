@@ -10,6 +10,7 @@ from auth_app.serializers.userSerializer    import UserSerializer
 from rest_framework.permissions             import IsAuthenticated
 from rest_framework_simplejwt.backends      import TokenBackend
 from django.conf                            import settings 
+from django_filters.rest_framework          import DjangoFilterBackend
 
 
 class UserCreateView(views.APIView):
@@ -36,34 +37,24 @@ class UserDetailView(generics.RetrieveAPIView):
     """
     queryset    = User.objects.all()
     serializer_class    = UserSerializer
-    permissions_classes = (IsAuthenticated,)
-
     def get(self, request, *args, **kwargs):
-        token   = request.META.get('HTTP_AUTHORIZATION')[7:]
-        token_backend   = TokenBackend(algorithm=settings.SIMPLE_JWT['ALGORITHM'])
-        validate_data   = token_backend.decode(token, verify=False)
-
-        if validate_data['user_id'] != kwargs['pk']:
-            string_response =   {'detail': "Acceso no Autorizado."}
-            return Response(string_response, status=status.HTTP_401_UNAUTHORIZED)
-
         return super().get(self,request, *args, **kwargs)
+        
 
 class UserUpdateView(generics.UpdateAPIView):
     """
     Servicio para actualizar la informacion de un usuario
     """
-    serializer_class = UserSerializer
     queryset = User.objects.all()
-    permissions_classes = (IsAuthenticated,)
-
+    serializer_class = UserSerializer
     def update(self, request, *args, **kwargs):
-        token   = request.META.get('HTTP_AUTHORIZATION')[7:]
-        token_backend   = TokenBackend(algorithm=settings.SIMPLE_JWT['ALGORITHM'])
-        validate_data   = token_backend.decode(token, verify=False)
-
-        if validate_data['user_id'] != kwargs['pk']:
-            string_response =   {'detail': "Acceso no Autorizado."}
-            return Response(string_response, status=status.HTTP_401_UNAUTHORIZED)
-
         return super().update(request, *args, **kwargs)
+
+class UserListUsername(generics.ListAPIView):
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['username']
+    serializer_class = UserSerializer
+
+    def get_queryset(self):
+        queryset = User.objects.all()
+        return queryset
